@@ -26,7 +26,7 @@ module "nat-gateway" {
   # Azure NAT Gateway and associated public IP, ip-prefix, subnets specificationscount
   # Regional or zone isolation with availability zones is supported
   nat_gateway = {
-    testnatgateway1 = {
+    testnatgateway-zone1 = {
       availability_zone       = ["1"]
       public_ip_prefix_length = 30
       idle_timeout_in_minutes = 10

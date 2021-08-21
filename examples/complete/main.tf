@@ -10,14 +10,13 @@ module "nat-gateway" {
   # By default, this module will not create a resource group. Location will be same as existing RG.
   # proivde a name to use an existing resource group, specify the existing resource group name, 
   # set the argument to `create_resource_group = true` to create new resrouce group.
-  #   # The Subnet must have the name `AzureFirewallSubnet` and the subnet mask must be at least a /26
   resource_group_name = "rg-shared-westeurope-01"
   location            = "westeurope"
 
   # Azure NAT Gateway and associated public IP, ip-prefix, subnets specificationscount
   # Regional or zone isolation with availability zones is supported
   nat_gateway = {
-    testnatgateway1 = {
+    testnatgateway-zone1 = {
       availability_zone       = ["1"]
       public_ip_prefix_length = 30
       idle_timeout_in_minutes = 10

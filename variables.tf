@@ -14,7 +14,7 @@ variable "location" {
 }
 
 variable "nat_gateway" {
-  description = "Manages Azure NAT Gateway also associated public IP, ip-prefix and subnets"
+  description = "Manages Azure NAT Gateway. Also association of public IP, ip-prefix and subnets to Nat gateway"
   type = map(object({
     public_ip_prefix_length = number
     availability_zone       = optional(list(string))

@@ -26,7 +26,7 @@ module "nat-gateway" {
   # Azure NAT Gateway and associated public IP, ip-prefix, subnets specificationscount
   # Regional or zone isolation with availability zones is supported
   nat_gateway = {
-    testnatgateway1 = {
+    testnatgateway-zone1 = {
       availability_zone       = ["1"]
       public_ip_prefix_length = 30
       idle_timeout_in_minutes = 10
@@ -51,6 +51,17 @@ module "nat-gateway" {
 }
 
 ```
+
+## **`nat_gateway`** - NAT gateway configuration
+
+This object to help set up the various settings for Azure NAT Gateway and supports following arguments.
+
+| Argument | Description |
+|--|--|
+`public_ip_prefix_length`| 
+`idle_timeout_in_minutes`|The idle timeout which should be used in minutes. Defaults to `4`
+`availability_zone`|Specifies the number of bits of the prefix. The value can be set between `0` (4,294,967,296 addresses) and `31` (2 addresses). Defaults to 30 (2 addresses).
+`subnet_id`|The ID of the Subnet within a Virtual Network
 
 ## Recommended naming and tagging conventions
 
