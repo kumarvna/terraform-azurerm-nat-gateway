@@ -1,12 +1,20 @@
+# Azure NAT Gateway Terraform Module
+
+Virtual Network NAT (network address translation) simplifies outbound-only Internet connectivity for virtual networks. When configured on a subnet, all outbound connectivity uses your specified static public IP addresses. Outbound connectivity is possible without load balancer or public IP addresses directly attached to virtual machines.
+
+This terraform module quickly deploys azure NAT Gateway instance with the assiociation with Public IP, Public IP prefix and with a Subnet within a Virtual Network.
+
+## Module Usage
+
+```hcl
 # Azurerm Provider configuration
 provider "azurerm" {
   features {}
 }
 
 module "nat-gateway" {
-  // source  = "kumarvna/nat-gateway/azurerm"
-  // version = "1.0.0"
-  source = "../../"
+  source  = "kumarvna/nat-gateway/azurerm"
+  version = "1.0.0"
 
   # By default, this module will not create a resource group. Location will be same as existing RG.
   # proivde a name to use an existing resource group, specify the existing resource group name, 
@@ -41,3 +49,17 @@ module "nat-gateway" {
     ServiceClass = "Gold"
   }
 }
+
+```
+
+## Terraform Usage
+
+To run this example you need to execute following Terraform commands
+
+```hcl
+terraform init
+terraform plan
+terraform apply
+```
+
+Run `terraform destroy` when you don't need these resources.
