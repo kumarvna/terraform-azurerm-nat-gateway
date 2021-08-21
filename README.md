@@ -4,6 +4,8 @@ Virtual Network NAT (network address translation) simplifies outbound-only Inter
 
 This terraform module quickly deploys azure NAT Gateway instance with the assiociation with Public IP, Public IP prefix and with a Subnet within a Virtual Network.
 
+> NAT is regional by default. When creating availability zones scenarios, NAT can be isolated in a specific zone (zonal deployment).
+
 ## Module Usage
 
 ```hcl
@@ -58,10 +60,16 @@ This object to help set up the various settings for Azure NAT Gateway and suppor
 
 | Argument | Description |
 |--|--|
-`public_ip_prefix_length`| 
+`public_ip_prefix_length`|
 `idle_timeout_in_minutes`|The idle timeout which should be used in minutes. Defaults to `4`
 `availability_zone`|Specifies the number of bits of the prefix. The value can be set between `0` (4,294,967,296 addresses) and `31` (2 addresses). Defaults to 30 (2 addresses).
 `subnet_id`|The ID of the Subnet within a Virtual Network
+
+## Limitations
+
+- NAT is compatible with standard SKU public IP, public IP prefix, and load balancer resources. Basic resources, such as basic load balancer, and any products derived from them aren't compatible with NAT. Basic resources must be placed on a subnet not configured with NAT.
+- IPv4 address family is supported. NAT doesn't interact with IPv6 address family. NAT can't be deployed on a subnet with an IPv6 prefix.
+- NAT can't span multiple virtual networks.
 
 ## Recommended naming and tagging conventions
 
@@ -118,5 +126,5 @@ Originally created by [Kumaraswamy Vithanala](mailto:kumarvna@gmail.com).
 
 ## Other resources
 
-* [Azure NAT Gateway](https://docs.microsoft.com/en-us/azure/virtual-network/nat-gateway/)
-* [Terraform AzureRM Provider Documentation](https://www.terraform.io/docs/providers/azurerm/index.html)
+- [Azure NAT Gateway](https://docs.microsoft.com/en-us/azure/virtual-network/nat-gateway/)
+- [Terraform AzureRM Provider Documentation](https://www.terraform.io/docs/providers/azurerm/index.html)
