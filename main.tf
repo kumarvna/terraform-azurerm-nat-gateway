@@ -4,7 +4,6 @@
 locals {
   resource_group_name = element(coalescelist(data.azurerm_resource_group.rgrp.*.name, azurerm_resource_group.rg.*.name, [""]), 0)
   location            = element(coalescelist(data.azurerm_resource_group.rgrp.*.location, azurerm_resource_group.rg.*.location, [""]), 0)
-  nat_gateway_zones   = { for zone in var.nat_gateway_zones : zone => true }
 }
 
 #---------------------------------------------------------
@@ -20,18 +19,6 @@ resource "azurerm_resource_group" "rg" {
   name     = lower(var.resource_group_name)
   location = var.location
   tags     = merge({ "ResourceName" = format("%s", var.resource_group_name) }, var.tags, )
-}
-
-data "azurerm_log_analytics_workspace" "logws" {
-  count               = var.log_analytics_workspace_name != null ? 1 : 0
-  name                = var.log_analytics_workspace_name
-  resource_group_name = local.resource_group_name
-}
-
-data "azurerm_storage_account" "storeacc" {
-  count               = var.storage_account_name != null ? 1 : 0
-  name                = var.storage_account_name
-  resource_group_name = local.resource_group_name
 }
 
 #--------------------------------------------
@@ -90,9 +77,9 @@ resource "azurerm_nat_gateway_public_ip_prefix_association" "main" {
   public_ip_prefix_id = azurerm_public_ip_prefix.ng-pref[each.key].id
 }
 
-#-----------------------------------------------------------
-# Association between a Nat Gateway and a Public IP Prefix.
-#-----------------------------------------------------------
+#-------------------------------------------------------------------
+# Associates a NAT Gateway with a Subnet within a Virtual Network.
+#-------------------------------------------------------------------
 resource "azurerm_subnet_nat_gateway_association" "main" {
   for_each       = var.nat_gateway
   nat_gateway_id = azurerm_nat_gateway.main[each.key].id
