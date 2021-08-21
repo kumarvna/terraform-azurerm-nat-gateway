@@ -16,7 +16,7 @@ variable "location" {
 variable "nat_gateway_zones" {
   description = "Public ips is a list of ip names that are connected to the firewall. At least one is required."
   type        = list(string)
-  default     = [1]
+  default     = ["1"]
 }
 
 variable "public_ip_prefix_length" {
@@ -40,12 +40,12 @@ variable "storage_account_name" {
 }
 
 variable "nat_gateway" {
-  description = "value"
+  description = "Manages Azure NAT Gateway also associated public IP, ip-prefix and subnets"
   type = map(object({
     public_ip_prefix_length = number
     availability_zone       = optional(list(string))
     idle_timeout_in_minutes = optional(number)
-    subnet_id               = optional(list(string))
+    subnet_id               = optional(string)
   }))
 }
 

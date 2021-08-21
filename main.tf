@@ -96,5 +96,5 @@ resource "azurerm_nat_gateway_public_ip_prefix_association" "main" {
 resource "azurerm_subnet_nat_gateway_association" "main" {
   for_each       = var.nat_gateway
   nat_gateway_id = azurerm_nat_gateway.main[each.key].id
-  subnet_id      = each.value
+  subnet_id      = each.value["subnet_id"]
 }

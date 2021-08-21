@@ -15,21 +15,19 @@ module "nat-gateway" {
   resource_group_name = "rg-shared-westeurope-01"
   location            = "westeurope"
 
+  # Azure NAT Gateway and associated public IP, ip-prefix, subnets specificationscount
   nat_gateway = {
     testnatgateway1 = {
       availability_zone       = ["1"]
       public_ip_prefix_length = 30
       idle_timeout_in_minutes = 10
-      subnet_id = [
-        "/subscriptions/1e3f0eeb-2235-44cd-b3a3-dcded0861d06/resourceGroups/rg-shared-westeurope-01/providers/Microsoft.Network/virtualNetworks/vnet-shared-hub-westeurope-001/subnets/snet-management",
-        "/subscriptions/1e3f0eeb-2235-44cd-b3a3-dcded0861d06/resourceGroups/rg-shared-westeurope-01/providers/Microsoft.Network/virtualNetworks/vnet-shared-hub-westeurope-001/subnets/snet-testnetwork1"
-      ]
+      subnet_id               = "/subscriptions/1e3f0eeb-2235-44cd-b3a3-dcded0861d06/resourceGroups/rg-shared-westeurope-01/providers/Microsoft.Network/virtualNetworks/vnet-shared-hub-westeurope-001/subnets/snet-management"
     },
     testnatgateway-zone2 = {
       availability_zone       = ["2"]
       public_ip_prefix_length = 30
       idle_timeout_in_minutes = 10
-      subnet_id               = ["/subscriptions/1e3f0eeb-2235-44cd-b3a3-dcded0861d06/resourceGroups/rg-shared-westeurope-01/providers/Microsoft.Network/virtualNetworks/vnet-shared-hub-westeurope-001/subnets/snet-appgateway"]
+      subnet_id               = "/subscriptions/1e3f0eeb-2235-44cd-b3a3-dcded0861d06/resourceGroups/rg-shared-westeurope-01/providers/Microsoft.Network/virtualNetworks/vnet-shared-hub-westeurope-001/subnets/snet-appgateway"
     }
   }
 
