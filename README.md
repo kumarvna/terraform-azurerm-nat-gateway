@@ -60,9 +60,9 @@ This object to help set up the various settings for Azure NAT Gateway and suppor
 
 | Argument | Description |
 |--|--|
-`public_ip_prefix_length`|
-`idle_timeout_in_minutes`|The idle timeout which should be used in minutes. Defaults to `4`
-`availability_zone`|Specifies the number of bits of the prefix. The value can be set between `0` (4,294,967,296 addresses) and `31` (2 addresses). Defaults to 30 (2 addresses).
+`public_ip_prefix_length`|Specifies the number of bits of the prefix. The value can be set between `0` (4,294,967,296 addresses) and `31` (2 addresses). Defaults to 30 (2 addresses).
+`idle_timeout_in_minutes`|The idle timeout which should be used in minutes. Defaults to `4`.
+`availability_zone`|A list of availability zones where the NAT Gateway, public ip and Public IP prefix should be provisioned.
 `subnet_id`|The ID of the Subnet within a Virtual Network
 
 ## Limitations
