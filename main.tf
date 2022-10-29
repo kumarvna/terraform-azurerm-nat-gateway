@@ -30,7 +30,7 @@ resource "azurerm_public_ip_prefix" "ng-pref" {
   resource_group_name = local.resource_group_name
   location            = local.location
   prefix_length       = lookup(each.value, "public_ip_prefix_length", 30)
-  availability_zone   = element(coalescelist(each.value["availability_zone"], [""]), 0)
+  zones               = lookup(each.value, "availability_zone", [""])
   tags                = merge({ "ResourceName" = lower("${each.key}-pip-prefix") }, var.tags, )
 }
 
@@ -41,7 +41,7 @@ resource "azurerm_public_ip" "ng-pip" {
   resource_group_name = local.resource_group_name
   allocation_method   = "Static"
   sku                 = "Standard"
-  availability_zone   = element(coalescelist(each.value["availability_zone"], [""]), 0)
+  zones               = lookup(each.value, "availability_zone", [""])
   tags                = merge({ "ResourceName" = lower("${each.key}-nat-gateway-pip") }, var.tags, )
 }
 

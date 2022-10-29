@@ -3,9 +3,21 @@ provider "azurerm" {
   features {}
 }
 
+data "azurerm_subnet" "snet1" {
+  name                 = "snet-test"
+  virtual_network_name = "vnet-shared-hub-westeurope-001"
+  resource_group_name  = "rg-shared-westeurope-01"
+}
+
+data "azurerm_subnet" "snet2" {
+  name                 = "snet-appgateway"
+  virtual_network_name = "vnet-shared-hub-westeurope-001"
+  resource_group_name  = "rg-shared-westeurope-01"
+}
+
 module "nat-gateway" {
   source  = "kumarvna/nat-gateway/azurerm"
-  version = "1.0.0"
+  version = "1.1.0"
 
   # By default, this module will not create a resource group. Location will be same as existing RG.
   # proivde a name to use an existing resource group, specify the existing resource group name, 
@@ -20,13 +32,13 @@ module "nat-gateway" {
       availability_zone       = ["1"]
       public_ip_prefix_length = 30
       idle_timeout_in_minutes = 10
-      subnet_id               = var.subnet_id
+      subnet_id               = data.azurerm_subnet.snet1.id
     },
     testnatgateway-zone2 = {
       availability_zone       = ["2"]
       public_ip_prefix_length = 30
       idle_timeout_in_minutes = 10
-      subnet_id               = var.subnet_id
+      subnet_id               = data.azurerm_subnet.snet2.id
     }
   }
 
